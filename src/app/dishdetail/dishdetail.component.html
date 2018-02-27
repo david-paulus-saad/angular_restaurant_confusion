@@ -1,0 +1,32 @@
+<div fxLayout="row">
+  <md-card *ngIf="dish" fxFlex>
+    <md-card-header>
+      <md-card-title>
+        <h3>{{dish.name | uppercase}}</h3>
+      </md-card-title>
+    </md-card-header>
+    <img md-card-image src={{dish.image}} alt={{dish.name}}>
+    <md-card-content>
+      <p>{{dish.description}}
+      </p>
+    </md-card-content>
+    <md-card-actions>
+      <button md-button>LIKE</button>
+      <button md-button>SHARE</button>
+    </md-card-actions>
+  </md-card>
+
+  <md-list *ngIf="dish" fxFlex>
+    <h3>comments</h3>
+    <div *ngFor="let details of dish['comments']">
+      <md-list-item class="md-3-line">
+        <div class="md-list-item-text" layout="column">
+          <span>{{details.comment}}</span><br>
+          <span>{{details.rating}}Stars</span><br>
+          <span>{{details.author}} {{details.date | date:"mediumDate"}}</span>
+        </div>
+      </md-list-item>
+
+    </div>
+  </md-list>
+</div>
