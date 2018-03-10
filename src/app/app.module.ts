@@ -19,6 +19,7 @@ import { HttpModule } from '@angular/http/src/http_module';
 import { LeaderService } from './services/leader.service';
 import { LoginComponent } from './login/login.component';
 import { FormsModule} from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { FormsModule} from '@angular/forms';
     MaterialModule,
     FlexLayoutModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
   entryComponents: [LoginComponent],
   providers: [DishService , PromotionService ,LeaderService],
