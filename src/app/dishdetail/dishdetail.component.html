@@ -1,5 +1,7 @@
+
 <div fxLayout="row">
-  <md-card *ngIf="dish" fxFlex>
+  <div fxFlex="40" *ngIf="dish">
+  <md-card >
     <md-card-header>
       <md-card-title>
         <h3>{{dish.name | uppercase}}</h3>
@@ -11,13 +13,17 @@
       </p>
     </md-card-content>
     <md-card-actions>
+      <button md-button [routerLink]="['/dishdetail', prev]"><span class="fa fa-chevron-left fa-lg"></span></button>
       <button md-button (click)="goBack()">BACK</button>
       <button md-button>LIKE</button>
       <button md-button>SHARE</button>
+      <span class="flex-spacer"></span>
+      <button md-button [routerLink]="['/dishdetail', next]"><span class="fa fa-chevron-right fa-lg"></span></button>
     </md-card-actions>
   </md-card>
-
-  <md-list *ngIf="dish" fxFlex>
+</div>
+<div fxFlex="40" *ngIf="dish">
+  <md-list  >
     <h3>comments</h3>
     <div *ngFor="let details of dish['comments']">
       <md-list-item class="md-3-line">
@@ -27,7 +33,7 @@
           <span>{{details.author}} {{details.date | date:"mediumDate"}}</span>
         </div>
       </md-list-item>
-
     </div>
   </md-list>
+</div>
 </div>
