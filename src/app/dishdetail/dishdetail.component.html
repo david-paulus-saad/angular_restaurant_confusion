@@ -1,39 +1,84 @@
-
 <div fxLayout="row">
   <div fxFlex="40" *ngIf="dish">
-  <md-card >
-    <md-card-header>
-      <md-card-title>
-        <h3>{{dish.name | uppercase}}</h3>
-      </md-card-title>
-    </md-card-header>
-    <img md-card-image src={{dish.image}} alt={{dish.name}}>
-    <md-card-content>
-      <p>{{dish.description}}
-      </p>
-    </md-card-content>
-    <md-card-actions>
-      <button md-button [routerLink]="['/dishdetail', prev]"><span class="fa fa-chevron-left fa-lg"></span></button>
-      <button md-button (click)="goBack()">BACK</button>
-      <button md-button>LIKE</button>
-      <button md-button>SHARE</button>
-      <span class="flex-spacer"></span>
-      <button md-button [routerLink]="['/dishdetail', next]"><span class="fa fa-chevron-right fa-lg"></span></button>
-    </md-card-actions>
-  </md-card>
-</div>
-<div fxFlex="40" *ngIf="dish">
-  <md-list  >
-    <h3>comments</h3>
-    <div *ngFor="let details of dish['comments']">
-      <md-list-item class="md-3-line">
-        <div class="md-list-item-text" layout="column">
-          <span>{{details.comment}}</span><br>
-          <span>{{details.rating}}Stars</span><br>
-          <span>{{details.author}} {{details.date | date:"mediumDate"}}</span>
+    <md-card>
+      <md-card-header>
+        <md-card-title>
+          <h3>{{dish.name | uppercase}}</h3>
+        </md-card-title>
+      </md-card-header>
+      <img md-card-image src={{dish.image}} alt={{dish.name}}>
+      <md-card-content>
+        <p>{{dish.description}}
+        </p>
+      </md-card-content>
+      <md-card-actions>
+        <button md-button [routerLink]="['/dishdetail', prev]">
+          <span class="fa fa-chevron-left fa-lg"></span>
+        </button>
+        <button md-button (click)="goBack()">BACK</button>
+        <button md-button>LIKE</button>
+        <button md-button>SHARE</button>
+        <span class="flex-spacer"></span>
+        <button md-button [routerLink]="['/dishdetail', next]">
+          <span class="fa fa-chevron-right fa-lg"></span>
+        </button>
+      </md-card-actions>
+    </md-card>
+  </div>
+  <div fxFlex="40" *ngIf="dish">
+    <div fxLayout="column" fxFlexOffset="20px">
+
+      <md-list fxFlex>
+        <h3>comments</h3>
+        <div *ngFor="let details of dish['comments']">
+          <md-list-item class="md-3-line">
+            <div class="md-list-item-text" layout="column">
+              <span>{{details.comment}}</span>
+              <br>
+              <span>{{details.rating}}Stars</span>
+              <br>
+              <span>{{details.author}} {{details.date | date:"mediumDate"}}</span>
+            </div>
+          </md-list-item>
         </div>
-      </md-list-item>
+      </md-list>
+      <p>
+        <md-list *ngIf="commentForm.valid">
+          <md-list-item class="md-3-line">
+            <div class="md-list-item-text" layout="column">
+              <span>{{commentForm.value.comment}}</span><br>
+              <span>{{commentForm.value.rate}}Stars</span><br>
+              <span>{{commentForm.value.name}}</span>
+
+            </div>
+          </md-list-item>
+        </md-list>
+      </p>
+
+      <div fxFlex >
+        <form [formGroup]="commentForm" (ngSubmit)="onSubmit()">
+          <md-input-container>
+          <input type="text" placeholder="Name" mdInput formControlName="name" >
+          <md-hint>
+            <span [hidden]="!(formErrors.name)">{{formErrors.name}}</span>
+          </md-hint>
+        </md-input-container>
+
+          <p>
+            <md-slider min="1" max="5" thumbLabel tickInterval="1" formControlName="rate"></md-slider>
+          </p>
+          <p>
+            <md-input-container>
+              <textarea mdInput rows="12" placeholder="Your Comment" formControlName="comment" ></textarea>
+              <md-hint>
+                  <span [hidden]="!(formErrors.comment)">{{formErrors.comment}}</span>
+                </md-hint>
+            </md-input-container>
+          </p>
+          <button type="submit" md-button class="background-primary text-floral-white" [disabled]="commentForm.invalid" >submit</button>
+      </form>
+      </div>
     </div>
-  </md-list>
-</div>
+  </div>
+
 </div>
