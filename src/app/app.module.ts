@@ -15,12 +15,13 @@ import { HomeComponent } from './home/home.component';
 import { ContactComponent } from './contact/contact.component';
 import {PromotionService} from "./services/promotion.service"
 import {AppRoutingModule} from './app-routing/app-routing.module';
-import { HttpModule } from '@angular/http/src/http_module';
 import { LeaderService } from './services/leader.service';
 import { LoginComponent } from './login/login.component';
 import { FormsModule} from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
-
+import {HttpModule}from '@angular/http';
+import {baseURL} from './shared/baseurl';
+import {ProcessHttpmsgService} from './services/process-httpmsg.service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -40,10 +41,13 @@ import { ReactiveFormsModule } from '@angular/forms';
     FlexLayoutModule,
     AppRoutingModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpModule
   ],
   entryComponents: [LoginComponent],
-  providers: [DishService , PromotionService ,LeaderService],
+  providers: [DishService , PromotionService ,LeaderService,ProcessHttpmsgService,
+  {provide:'BaseURL',useValue:baseURL}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
