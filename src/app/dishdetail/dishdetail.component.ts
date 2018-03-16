@@ -19,6 +19,7 @@ export class DishdetailComponent implements OnInit {
   dish : Dish;
   commentForm: FormGroup;
   comment : Comment;
+  dishcopy = null;
   constructor(private dishservice: DishService 
   , private route: ActivatedRoute,
 private location: Location ,private fb: FormBuilder ,
@@ -56,7 +57,8 @@ private location: Location ,private fb: FormBuilder ,
     this.comment=this.commentForm.value;
     var todayDate = new Date();
     this.comment.date=todayDate.toISOString();
-    this.dish.comments.push(this.comment);
+    this.dishcopy.comments.push(this.comment);
+    this.dishcopy.save().subscribe(dish => {this.dish=dish;console.log(this.dish);});
     this.commentForm.reset({
       name : "",
       rate :5,
@@ -80,7 +82,7 @@ private location: Location ,private fb: FormBuilder ,
   ngOnInit() {
     this.dishservice.getDishIds().subscribe(dishIds => this.dishIds =dishIds);
     this.route.params.switchMap((params: Params) =>this.dishservice.getDish(+params['id']))
-    .subscribe(dish => {this.dish =dish; this.setPrevNext(dish.id)});
+    .subscribe(dish => {this.dish =dish;this.dishcopy=dish; this.setPrevNext(dish.id)});
   }
   setPrevNext(dishId: number){
     let index =this.dishIds.indexOf(dishId);
