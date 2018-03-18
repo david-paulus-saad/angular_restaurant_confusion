@@ -6,17 +6,24 @@ import { Location } from '@angular/common';
 import 'rxjs/add/operator/switchMap';
 import  {FormGroup ,FormBuilder ,Validators} from "@angular/forms";
 import {Comment} from '../shared/comment';
+import { transformMenu } from '@angular/material/typings/menu/menu-animations';
+import { visibility } from '../animations/app.animation';
+
 @Component({
   selector: 'app-dishdetail',
   templateUrl: './dishdetail.component.html',
-  styleUrls: ['./dishdetail.component.scss']
+  styleUrls: ['./dishdetail.component.scss'],
+  animations: [
+    visibility()
+  ]
 })
 export class DishdetailComponent implements OnInit {
-
+  visibility = 'shown';
   dishIds: number[];
   prev: number;
   next: number;
   dish : Dish;
+  errMess=null;
   commentForm: FormGroup;
   comment : Comment;
   dishcopy = null;
@@ -81,8 +88,10 @@ private location: Location ,private fb: FormBuilder ,
   };
   ngOnInit() {
     this.dishservice.getDishIds().subscribe(dishIds => this.dishIds =dishIds);
-    this.route.params.switchMap((params: Params) =>this.dishservice.getDish(+params['id']))
-    .subscribe(dish => {this.dish =dish;this.dishcopy=dish; this.setPrevNext(dish.id)});
+    this.route.params
+    .switchMap((params: Params) => { this.visibility = 'hidden'; return this.dishservice.getDish(+params['id']); })
+    .subscribe(dish => { this.dish = dish; this.dishcopy = dish; this.setPrevNext(dish.id); this.visibility = 'shown'; },
+        errmess => { this.dish = null; this.errMess = <any>errmess; });
   }
   setPrevNext(dishId: number){
     let index =this.dishIds.indexOf(dishId);
