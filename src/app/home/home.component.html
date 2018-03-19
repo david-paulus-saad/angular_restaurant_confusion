@@ -26,12 +26,16 @@
       <h3>{{promotion.name | uppercase}}</h3>
     </md-card-title>
   </md-card-header>
-  <img md-card-image src={{promotion.image}} alt={{promotion.name}}>
+  <img md-card-image src={{BaseURL+promotion.image}} alt={{promotion.name}}>
   <md-card-content>
     <p>{{promotion.description}}
     </p>
   </md-card-content>
 </md-card>
+<div *ngIf="errMsgPromo">
+<h2>Error</h2>
+<h4>{{errMsg}}</h4>
+</div>
 
 <md-card *ngIf="leader" fxFlex>
     <md-card-header>
@@ -40,11 +44,15 @@
         <h3>{{leader.name }}</h3>
       </md-card-title>
     </md-card-header>
-    <img md-card-image src={{leader.image}} alt={{leader.name}}>
+    <img md-card-image src={{BaseURL+leader.image}} alt={{leader.name}}>
     <md-card-content>
       <p>{{ leader.designation}}</p>
       <p>{{leader.description}}
       </p>
     </md-card-content>
   </md-card>
+  <div *ngIf="errMsgLeader">
+    <h2>Error</h2>
+    <h4>{{errMsgLeader}}</h4>
+    </div>
 </div>

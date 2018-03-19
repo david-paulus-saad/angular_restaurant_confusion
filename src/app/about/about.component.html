@@ -55,11 +55,11 @@
   </div>
 
 
-  <div fxFlex>
+  <div fxFlex *ngIf="leaders">
     <h2>Corporate Leadership</h2>
       <md-list>
         <md-list-item *ngFor="let leader of leaders" class="md-3-line">
-          <img src="{{ leader.image }}" class="md-avatar">
+          <img src="{{ BaseURL + leader.image }}" class="md-avatar">
          <div class="md-list-item-text">
           <h3>{{ leader.name}}</h3>
           <h4>{{ leader.designation}}</h4>
@@ -67,5 +67,11 @@
         </div>
         </md-list-item>
       </md-list>
+  </div>
+  <div *ngIf="errMsg">
+ <h2>
+   Error
+ </h2>
+ <h4>{{errMsg}} </h4>
   </div>
 </div>

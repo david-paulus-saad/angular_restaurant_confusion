@@ -8,6 +8,7 @@ import 'hammerjs';
 import { MenuComponent } from './menu/menu.component';
 import { DishdetailComponent } from './dishdetail/dishdetail.component';
 import { DishService } from './services/dish.service';
+import {FeedbackService} from './services/feedback.service';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { AboutComponent } from './about/about.component';
@@ -25,7 +26,6 @@ import {ProcessHttpmsgService} from './services/process-httpmsg.service';
 import {RestangularModule ,Restangular} from 'ngx-restangular';
 import { RestangularConfigFactory } from './shared/restConfig';
 import { HighlightDirective } from './directive/highlight.directive';
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -51,7 +51,7 @@ import { HighlightDirective } from './directive/highlight.directive';
     RestangularModule.forRoot(RestangularConfigFactory)
   ],
   entryComponents: [LoginComponent],
-  providers: [DishService , PromotionService ,LeaderService,ProcessHttpmsgService,
+  providers: [DishService , PromotionService ,LeaderService,ProcessHttpmsgService,FeedbackService,
   {provide:'BaseURL',useValue:baseURL}
   ],
   bootstrap: [AppComponent]

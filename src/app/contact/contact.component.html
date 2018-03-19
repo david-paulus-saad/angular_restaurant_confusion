@@ -42,10 +42,8 @@
 </div>
   <div fxFlex fxFlexOffset="20px" class="form-size">
     <h3>Send us your Feedback</h3>
-    <p>
-      {{ feedbackForm.value | json}} {{feedbackForm.status |json }}
-    </p>
-    <form novalidate [formGroup]="feedbackForm" (ngSubmit)="onSubmit()">
+
+    <form novalidate [formGroup]="feedbackForm" (ngSubmit)="onSubmit()" *ngIf="showForm" [@expand]>
         <p>
           <md-input-container class="half-width"
            dividerColor="{{(formErrors.firstname) ? 'warn' : 'primary'}}">
@@ -101,4 +99,20 @@
         </p>
         <button type="submit" md-button class="background-primary text-floral-white" [disabled]="feedbackForm.invalid">Submit</button>
       </form>
+      <div [hidden]="hideSpinner">
+        <md-spinner>
+
+        </md-spinner>
+
+      </div>
+      <div *ngIf="showReview" [@expand]>
+      
+      <p>  First Name:{{fbReview.firstname}}</p>
+      <p> Last Name:{{fbReview.lastname}}</p>
+      <p> Tel. number: {{fbReview.telnum}}</p>
+      <p>Email: {{fbReview.email}}</p> 
+      <p> Agree: {{fbReview.agree}}</p>
+      <p>Contact: Type: {{fbReview.contacttype}}</p> 
+      <p> Message:{{fbReview.message}}</p>
+      </div>
   </div>
